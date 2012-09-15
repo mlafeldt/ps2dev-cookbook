@@ -3,7 +3,7 @@ require 'chefspec'
 describe 'The recipe ps2dev::default' do
   let (:chef_run) { ChefSpec::ChefRunner.new.converge 'ps2dev::default' }
 
-  %w(git-core wget).each do |pkg|
+  %w(wget).each do |pkg|
     it "should install #{pkg}" do
       chef_run.should install_package pkg
     end
