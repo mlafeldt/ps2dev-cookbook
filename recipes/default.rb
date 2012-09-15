@@ -1,12 +1,5 @@
 tmp_dir = "/tmp/toolchain"
 
-# Update Debian package index.
-# NOTE: Would be better to use the apt cookbook here.
-execute "apt-get-update" do
-  command "apt-get update"
-  ignore_failure true
-end
-
 # Install required Debian packages.
 %w(gcc git-core make patch wget).each do |pkg|
   package(pkg) do
