@@ -1,7 +1,7 @@
 tmp_dir = "/tmp/toolchain"
 
 # Install required Debian packages.
-%w(gcc git-core make patch wget).each do |pkg|
+%w(git-core wget).each do |pkg|
   package(pkg) do
     action :install
   end
