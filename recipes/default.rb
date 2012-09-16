@@ -1,6 +1,10 @@
 tmp_dir = "/tmp/toolchain"
 
 # Install required Debian packages.
+%w(build-essential git).each do |recipe|
+  include_recipe recipe
+end
+
 %w(wget).each do |pkg|
   package(pkg) do
     action :install
