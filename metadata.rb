@@ -1,3 +1,4 @@
+name              "ps2dev"
 maintainer        "Mathias Lafeldt"
 maintainer_email  "mathias.lafeldt@gmail.com"
 license           "Apache 2.0"
