@@ -4,8 +4,11 @@ set -e
 
 script/bootstrap
 
+COOKBOOK_PATH=cookbooks
+
 echo "  + Installing cookbook shims."
-bundle exec berks install --shims cookbooks/
+rm -rf $COOKBOOK_PATH
+bundle exec berks install --shims $COOKBOOK_PATH
 
 echo "  + Running tests."
-exec bundle exec rspec --color --format documentation cookbooks/
+exec bundle exec rspec --color --format documentation $COOKBOOK_PATH
