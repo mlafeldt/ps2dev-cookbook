@@ -1,0 +1,8 @@
+# Bundler
+/.bundle
+/bin/
+/vendor/gems/
+
+# Berkshelf
+/Berksfile.lock
+/cookbooks/
