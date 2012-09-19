@@ -6,9 +6,9 @@ script/bootstrap
 
 COOKBOOKS_PATH=cookbooks
 
-echo "  + Installing cookbook shims."
+echo "  + Installing cookbooks and their dependencies."
 rm -rf "$COOKBOOKS_PATH"
-bundle exec berks install --shims "$COOKBOOKS_PATH"
+bundle exec berks install --path "$COOKBOOKS_PATH"
 
-echo "  + Running tests."
+echo "  + Running RSpec tests."
 exec bundle exec rspec --color --format documentation "$COOKBOOKS_PATH"
