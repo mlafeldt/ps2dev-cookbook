@@ -4,11 +4,10 @@ set -e
 
 script/bootstrap
 
-COOKBOOKS_PATH=cookbooks
-
-echo "  + Installing cookbooks and their dependencies."
-rm -rf "$COOKBOOKS_PATH"
-bundle exec berks install --path "$COOKBOOKS_PATH"
+COOKBOOK_NAME=ps2dev
+RSPEC_COOKBOOKS=cookbooks
+export RSPEC_COOKBOOKS
 
 echo "  + Running RSpec tests."
-exec bundle exec rspec --color --format documentation "$COOKBOOKS_PATH"
+exec bundle exec rspec --color --format documentation \
+    --require ./script/rspec-berkshelf.rb "$RSPEC_COOKBOOKS/$COOKBOOK_NAME"
