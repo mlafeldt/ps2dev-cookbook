@@ -4,10 +4,14 @@ set -e
 
 script/bootstrap
 
-COOKBOOK_NAME=ps2dev
-RSPEC_COOKBOOKS=cookbooks
-export RSPEC_COOKBOOKS
+: ${COOKBOOK_NAME:="ps2dev"}
+: ${COOKBOOKS_ROOT:="/tmp/cookbooks"}
+COOKBOOKS_PATH="$COOKBOOKS_ROOT/$COOKBOOK_NAME"
 
-echo "  + Running RSpec tests."
-exec bundle exec rspec --color --format documentation \
-    --require ./script/rspec-berkshelf.rb "$RSPEC_COOKBOOKS/$COOKBOOK_NAME"
+echo "  + Installing cookbooks to '$COOKBOOKS_PATH'"
+LIBRARIAN_CHEF_PATH="$COOKBOOKS_PATH"
+export LIBRARIAN_CHEF_PATH
+bundle exec librarian-chef install $LIBRARIAN_OPTS
+
+echo "  + Running RSpec tests..."
+exec bundle exec rspec $RSPEC_OPTS "$COOKBOOKS_PATH/$COOKBOOK_NAME"
