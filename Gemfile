@@ -1,4 +1,4 @@
 source :rubygems
 
-gem "berkshelf", "~>0.5.1"
 gem "chefspec", "~>0.8"
+gem "librarian", "~>0.0.24"

@@ -3,6 +3,7 @@
 /bin/
 /vendor/gems/
 
-# Berkshelf
-/Berksfile.lock
+# Librarian-Chef
+/.librarian/
 /cookbooks/
+/tmp/
