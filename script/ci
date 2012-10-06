@@ -2,8 +2,6 @@
 
 set -e
 
-script/bootstrap
-
 export PATH="$PWD/bin:$PATH"
 
 COOKBOOK_NAME="ps2dev"
