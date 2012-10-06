@@ -1,5 +1,5 @@
 # Bundler
-/.bundle
+/.bundle/
 /bin/
 /vendor/gems/
 
