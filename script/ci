@@ -2,17 +2,13 @@
 
 set -e
 
-script/bootstrap
-
 export PATH="$PWD/bin:$PATH"
 
-: ${COOKBOOK_NAME:="ps2dev"}
-: ${COOKBOOKS_ROOT:="/tmp/cookbooks"}
-COOKBOOKS_PATH="$COOKBOOKS_ROOT/$COOKBOOK_NAME"
-
-echo "  + Installing cookbooks to '$COOKBOOKS_PATH'"
-export LIBRARIAN_CHEF_PATH="$COOKBOOKS_PATH"
-librarian-chef install $LIBRARIAN_OPTS
+COOKBOOKS_PATH="cookbooks"
+COOKBOOK_NAME="$(sed -n -e "s/name.*\"\(.*\)\"/\1/p" metadata.rb)"
+: ${COOKBOOK_NAME:=$(basename "$PWD")}
 
 echo "  + Running RSpec tests..."
+mkdir -p "$COOKBOOKS_PATH"
+ln -snf ../ "$COOKBOOKS_PATH/$COOKBOOK_NAME"
 exec rspec $RSPEC_OPTS "$COOKBOOKS_PATH/$COOKBOOK_NAME"
