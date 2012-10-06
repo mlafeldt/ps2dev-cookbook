@@ -3,7 +3,5 @@
 /bin/
 /vendor/gems/
 
-# Librarian-Chef
-/.librarian/
+# ChefSpec
 /cookbooks/
-/tmp/
