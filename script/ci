@@ -4,14 +4,15 @@ set -e
 
 script/bootstrap
 
+export PATH="$PWD/bin:$PATH"
+
 : ${COOKBOOK_NAME:="ps2dev"}
 : ${COOKBOOKS_ROOT:="/tmp/cookbooks"}
 COOKBOOKS_PATH="$COOKBOOKS_ROOT/$COOKBOOK_NAME"
 
 echo "  + Installing cookbooks to '$COOKBOOKS_PATH'"
-LIBRARIAN_CHEF_PATH="$COOKBOOKS_PATH"
-export LIBRARIAN_CHEF_PATH
-bundle exec librarian-chef install $LIBRARIAN_OPTS
+export LIBRARIAN_CHEF_PATH="$COOKBOOKS_PATH"
+librarian-chef install $LIBRARIAN_OPTS
 
 echo "  + Running RSpec tests..."
-exec bundle exec rspec $RSPEC_OPTS "$COOKBOOKS_PATH/$COOKBOOK_NAME"
+exec rspec $RSPEC_OPTS "$COOKBOOKS_PATH/$COOKBOOK_NAME"
