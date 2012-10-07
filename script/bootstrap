@@ -13,6 +13,6 @@ else
 fi
 
 echo "  + Bootstrapping your gems..."
-bundle install --binstubs
+bundle install --binstubs $BUNDLER_OPTS
 
 echo "Done!"
