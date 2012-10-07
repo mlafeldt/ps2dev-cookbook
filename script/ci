@@ -2,13 +2,15 @@
 
 set -e
 
+# Use executables available from gems in bundle
 export PATH="$PWD/bin:$PATH"
 
-COOKBOOKS_PATH="cookbooks"
+# Get cookbook name from metadata.rb or PWD
 COOKBOOK_NAME="$(sed -n -e "s/name.*\"\(.*\)\"/\1/p" metadata.rb)"
 : ${COOKBOOK_NAME:=$(basename "$PWD")}
 
-echo "  + Running RSpec tests..."
+# Prepare cookbook folder and run RSpec tests
+COOKBOOKS_PATH="cookbooks"
 mkdir -p "$COOKBOOKS_PATH"
 ln -snf ../ "$COOKBOOKS_PATH/$COOKBOOK_NAME"
-exec rspec $RSPEC_OPTS "$COOKBOOKS_PATH/$COOKBOOK_NAME"
+exec rspec $RSPEC_OPTS "$COOKBOOKS_PATH/$COOKBOOK_NAME/spec"
