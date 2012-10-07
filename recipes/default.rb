@@ -17,23 +17,21 @@
 # limitations under the License.
 #
 
-tmp_dir = "/tmp/toolchain"
-
 # Install required Debian packages.
 %w(build-essential git).each do |recipe|
   include_recipe recipe
 end
 
-%w(wget).each do |pkg|
+node['ps2dev']['packages'].each do |pkg|
   package(pkg) do
     action :install
   end
 end
 
 # Clone toolchain.
-git tmp_dir do
-  repository "git://github.com/ps2dev/ps2toolchain.git"
-  reference "master"
+git node['ps2dev']['tmpdir'] do
+  repository node['ps2dev']['git']['repo']
+  reference node['ps2dev']['git']['ref']
   depth 1
   action :sync
 end
@@ -41,19 +39,19 @@ end
 # Build and install toolchain.
 execute "toolchain-sudo.sh" do
   user "root"
-  cwd tmp_dir
+  cwd node['ps2dev']['tmpdir']
   command "./toolchain-sudo.sh"
   not_if "which ee-gcc iop-gcc ps2client && test -d /usr/local/ps2dev/ps2sdk"
 end
 
 # Clean up.
-directory tmp_dir do
+directory node['ps2dev']['tmpdir'] do
   recursive true
   action :delete
 end
 
 # Set up environment variables.
 cookbook_file "/etc/profile.d/ps2dev.sh" do
-  mode 0644
+  mode "0644"
   action :create
 end
