@@ -6,7 +6,9 @@ rvm:
 
 install: script/bootstrap
 
-script: script/ci
+script:
+  - script/lint
+  - script/ci
 
 branches:
   only:
