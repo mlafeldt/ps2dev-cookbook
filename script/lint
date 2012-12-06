@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+# Bootstrap if required
+test -x bin/foodcritic || script/bootstrap
+
+# Run foodcritic on working dir
+exec bin/foodcritic $FOODCRITIC_OPTS --epic-fail any .
