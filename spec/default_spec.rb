@@ -1,10 +1,7 @@
 require 'chefspec'
 
 describe 'The recipe ps2dev::default' do
-  let (:chef_run) do
-    Chef::Recipe.any_instance.stub(:include_recipe)
-    ChefSpec::ChefRunner.new.converge 'ps2dev::default'
-  end
+  let (:chef_run) { ChefSpec::ChefRunner.new.converge 'ps2dev::default' }
 
   %w(wget).each do |pkg|
     it "should install #{pkg}" do
