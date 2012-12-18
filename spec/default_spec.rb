@@ -3,21 +3,31 @@ require 'chefspec'
 describe 'The recipe ps2dev::default' do
   let (:chef_run) { ChefSpec::ChefRunner.new.converge 'ps2dev::default' }
 
+  %w(build-essential git).each do |recipe|
+    it "should include the recipe #{recipe}" do
+      chef_run.should include_recipe recipe
+    end
+  end
+
   %w(wget).each do |pkg|
-    it "should install #{pkg}" do
+    it "should install the package #{pkg}" do
       chef_run.should install_package pkg
     end
   end
 
-  it 'should execute toolchain-sudo.sh' do
+  # TODO check for git resource
+  it 'should clone the toolchain from GitHub'
+
+  it 'should execute the toolchain script' do
     chef_run.should execute_command './toolchain-sudo.sh'
   end
 
-  it 'should delete directory /tmp/toolchain' do
-    chef_run.should delete_directory '/tmp/toolchain'
+  it 'should delete the temporary directory' do
+    chef_run.should delete_directory \
+      File.join(Chef::Config[:file_cache_path], 'ps2dev')
   end
 
-  it 'should create cookbook file /etc/profile.d/ps2dev.sh' do
+  it 'should create the cookbook file /etc/profile.d/ps2dev.sh' do
     chef_run.should create_cookbook_file '/etc/profile.d/ps2dev.sh'
   end
 end
