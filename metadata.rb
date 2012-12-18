@@ -11,4 +11,4 @@ supports "ubuntu"
 supports "debian"
 
 depends "build-essential"
-depends "git", "1.0.0"
+depends "git"
