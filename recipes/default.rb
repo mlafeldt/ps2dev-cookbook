@@ -28,8 +28,10 @@ node['ps2dev']['packages'].each do |pkg|
   end
 end
 
+tmpdir = File.join(Chef::Config[:file_cache_path], 'ps2dev')
+
 # Clone toolchain.
-git node['ps2dev']['tmpdir'] do
+git tmpdir do
   repository node['ps2dev']['git']['repo']
   reference node['ps2dev']['git']['ref']
   depth 1
@@ -39,13 +41,13 @@ end
 # Build and install toolchain.
 execute "toolchain-sudo.sh" do
   user "root"
-  cwd node['ps2dev']['tmpdir']
+  cwd tmpdir
   command "./toolchain-sudo.sh"
   not_if "which ee-gcc iop-gcc ps2client && test -d /usr/local/ps2dev/ps2sdk"
 end
 
 # Clean up.
-directory node['ps2dev']['tmpdir'] do
+directory tmpdir do
   recursive true
   action :delete
 end

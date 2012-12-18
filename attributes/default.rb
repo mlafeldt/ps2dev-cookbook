@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 
-default['ps2dev']['tmpdir'] = "/tmp/toolchain"
 default['ps2dev']['packages'] = ["wget"]
 default['ps2dev']['git']['repo'] = "git://github.com/ps2dev/ps2toolchain.git"
 default['ps2dev']['git']['ref'] = "master"
