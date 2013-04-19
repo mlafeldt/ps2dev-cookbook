@@ -1,7 +1,12 @@
 require 'chefspec'
 
 describe 'The recipe ps2dev::default' do
-  let (:chef_run) { ChefSpec::ChefRunner.new.converge 'ps2dev::default' }
+  let (:chef_run) do
+    chef_run = ChefSpec::ChefRunner.new
+    chef_run.node.set['platform_family'] = 'debian'
+    chef_run.converge 'ps2dev::default'
+    chef_run
+  end
 
   %w(build-essential git).each do |recipe|
     it "should include the recipe #{recipe}" do
