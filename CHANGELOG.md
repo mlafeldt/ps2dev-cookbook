@@ -1,3 +1,12 @@
+1.0.6 (Apr 22 2013)
+-------------------
+
+* Fix ChefSpec examples by setting `platform_family` for build-essential
+  cookbook.
+* Use Ubuntu 10.04 (Lucid Lynx) in Vagrantfile. No longer compiles under Precise
+  as-is.
+
+
 1.0.5 (Apr 19 2013)
 -------------------
 
