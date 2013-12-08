@@ -3,5 +3,6 @@
 */bin
 */bundle
 */chefignore
-*/fixtures
+*/spec
+*/test
 */vendor
