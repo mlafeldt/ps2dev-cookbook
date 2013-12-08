@@ -1,11 +1,12 @@
-require 'chefspec'
+require "spec_helper"
 
-describe 'The recipe ps2dev::default' do
-  let (:chef_run) do
-    chef_run = ChefSpec::ChefRunner.new
-    chef_run.node.set['platform_family'] = 'debian'
-    chef_run.converge 'ps2dev::default'
-    chef_run
+describe "ps2dev::default" do
+  let (:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
+  let(:tmpdir) { File.join(Chef::Config[:file_cache_path], "ps2dev") }
+
+  before do
+    stub_command("test -d #{tmpdir}").and_return(false)
+    stub_command("which ee-gcc iop-gcc ps2client && test -d /usr/local/ps2dev/ps2sdk").and_return(false)
   end
 
   %w(build-essential git).each do |recipe|
@@ -21,18 +22,18 @@ describe 'The recipe ps2dev::default' do
   end
 
   # TODO check for git resource
-  it 'should clone the toolchain from GitHub'
+  it "should clone the toolchain from GitHub"
 
-  it 'should execute the toolchain script' do
-    chef_run.should execute_command './toolchain-sudo.sh'
+  it "should execute the toolchain script" do
+    chef_run.should run_execute "./toolchain-sudo.sh"
   end
 
-  it 'should delete the temporary directory' do
-    chef_run.should delete_directory \
-      File.join(Chef::Config[:file_cache_path], 'ps2dev')
+  it "should delete the temporary directory" do
+    stub_command("test -d #{tmpdir}").and_return(true)
+    chef_run.should delete_directory tmpdir
   end
 
-  it 'should create the cookbook file /etc/profile.d/ps2dev.sh' do
-    chef_run.should create_cookbook_file '/etc/profile.d/ps2dev.sh'
+  it "should create the cookbook file /etc/profile.d/ps2dev.sh" do
+    chef_run.should create_cookbook_file "/etc/profile.d/ps2dev.sh"
   end
 end
