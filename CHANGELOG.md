@@ -1,3 +1,10 @@
+1.1.0 (Dec 8 2013)
+------------------
+
+* Use Test Kitchen for integration testing.
+* Update to ChefSpec v3.
+* Update README.
+
 1.0.6 (Apr 22 2013)
 -------------------
 
