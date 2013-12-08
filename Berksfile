@@ -1,6 +1,5 @@
-# vi: set ft=ruby :
+site :opcode
 
 metadata
 
-cookbook 'apt'
-cookbook 'minitest-handler' unless ENV['INTEGRATION_TEST'].nil?
+cookbook "apt"
