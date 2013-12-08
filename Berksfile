@@ -1,4 +1,4 @@
-site :opcode
+site :opscode
 
 metadata
 
