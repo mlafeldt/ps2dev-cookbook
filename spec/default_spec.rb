@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "ps2dev::default" do
-  let (:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
   let(:tmpdir) { File.join(Chef::Config[:file_cache_path], "ps2dev") }
 
   before do
@@ -21,7 +21,7 @@ describe "ps2dev::default" do
     end
   end
 
-  # TODO check for git resource
+  # TODO: check for git resource
   it "should clone the toolchain from GitHub"
 
   it "should execute the toolchain script" do
